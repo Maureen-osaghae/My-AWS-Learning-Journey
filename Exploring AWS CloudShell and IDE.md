@@ -205,62 +205,62 @@ Create a new file and upload it to Amazon S3 by using the VS Code IDE CLI.
 ASofía is pleased that she identified an IDE that has the features that she needs to develop the café website. She likes that VS Code IDE offers a graphical text editor, a file browser, a terminal for running AWS CLI commands, and code that uses the AWS SDKs. She's also glad that she knows about the features of CloudShell because she can open it from the AWS Management Console. CloudShell also provides some features that are similar to VS Code IDE but without the need to run an EC2 instance. 
 In the next lab, Sofia will use VS Code IDE to accomplish her development objectives.
 
-import boto3
-
-BUCKET_NAME = 'YOUR_BUCKET_NAME'
-FILE_NAME = 'index.html'
-
-# setup s3 client named s3_client
-s3_client = boto3.client('s3')
-
-# create a function to put s3 bucket ownership controls with Rules set to BucketOwnerPreferred
-def put_bucket_ownership_controls():
-    response = s3_client.put_bucket_ownership_controls(
-        Bucket=BUCKET_NAME,
-        OwnershipControls={
-            'Rules': [
-                {
-                    'ObjectOwnership': 'BucketOwnerPreferred'
-                },
-            ]
-        }
-    )
-    return response
-    
-# create a function to set public access block values to false
-def set_public_access_block():
-    
-    response = s3_client.put_public_access_block(
-        Bucket=BUCKET_NAME,
-        PublicAccessBlockConfiguration={
-            'BlockPublicAcls': False,
-            'IgnorePublicAcls': False,
-            'BlockPublicPolicy': False,
-            'RestrictPublicBuckets': False
-        }
-    )
-    return response
-    
-# create a function to allow public access to FILE_NAME
-def allow_public_access_to_file():
-    response = s3_client.put_object_acl(
-        Bucket=BUCKET_NAME,
-        Key=FILE_NAME,
-        ACL='public-read'
-    )
-    return response
-    
-# call the functions
-put_bucket_ownership_controls()
-set_public_access_block()
-allow_public_access_to_file()
-
-<h2> Lab Complete </h2>
-© 2024 Amazon Web Services, Inc. and its affiliates. All rights reserved. This work may not be reproduced or redistributed, in whole or in part, without prior written permission from Amazon Web Services, Inc. Commercial copying, lending, or selling is prohibited.
-
-
-
-
+                  import boto3
+                  
+                  BUCKET_NAME = 'YOUR_BUCKET_NAME'
+                  FILE_NAME = 'index.html'
+                  
+                  # setup s3 client named s3_client
+                  s3_client = boto3.client('s3')
+                  
+                  # create a function to put s3 bucket ownership controls with Rules set to BucketOwnerPreferred
+                  def put_bucket_ownership_controls():
+                      response = s3_client.put_bucket_ownership_controls(
+                          Bucket=BUCKET_NAME,
+                          OwnershipControls={
+                              'Rules': [
+                                  {
+                                      'ObjectOwnership': 'BucketOwnerPreferred'
+                                  },
+                              ]
+                          }
+                      )
+                      return response
+                      
+                  # create a function to set public access block values to false
+                  def set_public_access_block():
+                      
+                      response = s3_client.put_public_access_block(
+                          Bucket=BUCKET_NAME,
+                          PublicAccessBlockConfiguration={
+                              'BlockPublicAcls': False,
+                              'IgnorePublicAcls': False,
+                              'BlockPublicPolicy': False,
+                              'RestrictPublicBuckets': False
+                          }
+                      )
+                      return response
+                      
+                  # create a function to allow public access to FILE_NAME
+                  def allow_public_access_to_file():
+                      response = s3_client.put_object_acl(
+                          Bucket=BUCKET_NAME,
+                          Key=FILE_NAME,
+                          ACL='public-read'
+                      )
+                      return response
+                      
+                  # call the functions
+                  put_bucket_ownership_controls()
+                  set_public_access_block()
+                  allow_public_access_to_file()
+                  
+                  <h2> Lab Complete </h2>
+                  © 2024 Amazon Web Services, Inc. and its affiliates. All rights reserved. This work may not be reproduced or redistributed, in whole or in part, without prior written permission from Amazon Web Services, Inc. Commercial copying, lending, or selling is prohibited.
+                  
+                  
+                  
+                  
 
 
 
