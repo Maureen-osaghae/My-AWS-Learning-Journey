@@ -15,34 +15,35 @@ In this lab, you will take on the role of Sofía. You will connect to an AWS Clo
 <h2>Business Scenario</h2>
 Frank and Martha are a married team who own and operate a small café business that sells desserts and coffee.
 
-<img width="302" alt="image" src="https://github.com/user-attachments/assets/f2e367dc-b119-43ae-a132-500211301a63" />
+<img width="302" alt="image" src="https://github.com/user-attachments/assets/a24d4271-76af-4c11-9c8e-a5e23a7241a3" />
 
 Their daughter, Sofía, works at the café. Sofía is pursuing a degree in cloud computing at a local university in the evenings and on the weekends. She has Python development skills and is learning more about how to develop solutions in the cloud. 
 
 Sofía is eager to start developing a web presence for the café. She thinks that before she starts coding, it would be a good idea to decide on a development environment for developing and running her code. She decides to explore at least two options that are available on AWS. 
 
-When you start the lab, the only pre-created resource in the AWS account is an empty S3 bucket. 
-<img width="640" alt="image" src="https://github.com/user-attachments/assets/cdadabcc-bf91-4482-8a83-837779824e15" />
+When you start the lab, the only pre-created resource in the AWS account is an empty S3 bucket.
+
+<img width="301" alt="image" src="https://github.com/user-attachments/assets/0f55d852-c0ac-41c2-b27f-96affababd18" />
+
 
 However, by the end of this lab, you will have explored VS Code IDE and performed the actions that are shown below: 
 
-<img width="663" alt="image" src="https://github.com/user-attachments/assets/191459a3-6720-48aa-8a37-9b6895148519" />
+<img width="640" alt="image" src="https://github.com/user-attachments/assets/98bc7184-d28c-4a18-9901-777ef5b03931" />
 
 <h2>Task 1: Exploring AWS CloudShell</h2>
 
-<img width="650" alt="image" src="https://github.com/user-attachments/assets/b7d9c689-2745-4681-af34-18f0f8707bf3" />
+<img width="650" alt="image" src="https://github.com/user-attachments/assets/001f1165-a4bf-4aba-ab5a-cc81b3915889" />
 
 In the AWS Management Console, at the top of the screen, choose the AWS CloudShell icon. 
 
-<img width="956" alt="image" src="https://github.com/user-attachments/assets/eb7c9ef8-f588-45e0-b4de-3c117cb9bb68" />
-
+<img width="956" alt="image" src="https://github.com/user-attachments/assets/4ba1a7b7-f6f0-4925-b0f3-376f5d9b6f18" />
 
 A new browser tab opens with the AWS CloudShell interface.
 If a "Welcome to AWS CloudShell" pop-up window opens, choose Close.
 It might take 1–2 minutes for the terminal to become available.
 You should be able to access a terminal window with a prompt.
 
-<img width="958" alt="image" src="https://github.com/user-attachments/assets/3b977a94-02c7-4e72-87a6-e9843c4c3606" />
+<img width="958" alt="image" src="https://github.com/user-attachments/assets/06375fbd-96f7-4119-9122-926a4f3e8d2e" />
 
 Verify that the AWS CLI is installed.
 <ol>
@@ -50,7 +51,8 @@ Verify that the AWS CLI is installed.
           <li>In the output after aws-cli, the version indicates that CloudShell is using AWS CLI version 2.x.x by default.</li>
 <ol>
 
-<img width="959" alt="image" src="https://github.com/user-attachments/assets/306f5cbb-6f4e-4c91-842c-21a1fe8c52ef" />
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/290f6e4c-eb26-4ab0-b595-1981a5be9d82" />
+
 
 Test the ability to run an AWS CLI command.
 <ol>
@@ -61,26 +63,24 @@ Test the ability to run an AWS CLI command.
 An empty sample bucket was automatically created when you started the lab. The bucket name should appear in the result set.
 
 
-<img width="959" alt="image" src="https://github.com/user-attachments/assets/cf295c0c-1c63-4a1d-a053-f97742e968e8" />
-
-
-         
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/6a29aacd-4ca4-434f-821b-c74cb780b65e" />       
 
   From the Actions menu, choose Tabs layout > Split into columns. A second terminal window opens. 
   
   This action demonstrates that you can have multiple terminal panels open at the same time.
 
-  <img width="956" alt="image" src="https://github.com/user-attachments/assets/d4ae3113-6a6a-49ba-ba28-7051696e7b0c" />
+<img width="956" alt="image" src="https://github.com/user-attachments/assets/dfb69f5d-455d-401d-b025-cda85585a93e" />
+
 
 Test the ability to run SDK for Python code.
      Open the context (right-click) menu for the following link, and download the file to your computer:
+    
     list-buckets.py (https://aws-tc-largeobjects.s3.us-west-2.amazonaws.com/CUR-TF-200-ACCDEV-2-44869/01-lab-cloud9/s3/list-buckets.py)
 
-
-    From the Actions menu, choose Files > Upload file, and then choose Select file. 
+From the Actions menu, choose Files > Upload file, and then choose Select file. 
       In the File Upload window, scroll to the list-buckets.py file that you downloaded, choose it, and then choose Open.
 
-  <img width="959" alt="image" src="https://github.com/user-attachments/assets/2c655333-088e-4524-b0fa-9eea4578a29b" />
+ <img width="959" alt="image" src="https://github.com/user-attachments/assets/b6f640e8-e725-4c29-994b-be7c7c55365f" />
 
   Choose Upload.
 <ol>
@@ -89,14 +89,14 @@ Test the ability to run SDK for Python code.
       </ol>
       The output shows the contents of the file that you uploaded:
 
-  <img width="959" alt="image" src="https://github.com/user-attachments/assets/487f3964-4c4f-4d92-a818-426262a13624" />
+ <img width="959" alt="image" src="https://github.com/user-attachments/assets/0cd61c7e-9e52-40fd-9bc4-4fe8f6e210fe" />
 
   In the terminal on the right, run the SDK for Python code by issuing the following command: python3 list-buckets.py
       The name of the S3 bucket is returned.
       Compare this output with the AWS CLI command output in the terminal on the left.
       You have now used two different programmatic ways to retrieve a list of the S3 buckets that exist in the AWS account.
 
-<img width="959" alt="image" src="https://github.com/user-attachments/assets/3a778783-7abc-4ddc-adf1-4d904163bc8a" />
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/074c0bfe-7afd-4293-aaad-d6bfa8c7ece1" />
 
 
 Copy a file from CloudShell to an S3 bucket. Copy the name of the bucket that includes -sample-bucket- in the name. To copy the list-buckets.py file to the bucket, go to the terminal on the left and run the following command (replace <bucket-name> with your actual bucket name):
@@ -104,13 +104,15 @@ Copy a file from CloudShell to an S3 bucket. Copy the name of the bucket that in
       If the upload is successful, an output similar to the following example is returned:
       upload: ./list-buckets.py to s3://<bucket-name>/list-buckets.py
 
-<img width="472" alt="image" src="https://github.com/user-attachments/assets/e8ef2b9e-dcac-4958-8bf3-2585a8c13d25" />
+<img width="472" alt="image" src="https://github.com/user-attachments/assets/932dbfde-a764-461b-aaff-e6e33dafea69" />
+
 
 When you use AWS CloudShell, you have persistent storage of 1 GB for each AWS Region at no additional cost.
 The persistent storage is located in your home directory ($HOME) and is private to you. If you run the df -H /home command in a terminal, the amount of storage that's available in your CloudShell environment is returned.
 Data in your home directory persists between sessions. If you must store more than 1 GB, you can access an S3 bucket from CloudShell.
 
-<img width="488" alt="image" src="https://github.com/user-attachments/assets/d6241da3-f4c1-4622-9ea7-56df619974e6" />
+<img width="488" alt="image" src="https://github.com/user-attachments/assets/03f72bdc-23bf-47b8-87d8-7265d26d15bb" />
+
 
 <h2>Update from the café</h2>
 
@@ -137,7 +139,8 @@ Copy values from the table for the following and paste it into an editor of your
 
 Note: User Interface similar to the following is displayed.
 
-<img width="860" alt="image" src="https://github.com/user-attachments/assets/f743f7bf-2707-484a-8411-ad6bab3c0047" />
+<img width="860" alt="image" src="https://github.com/user-attachments/assets/fd9922de-319c-48c7-a3fe-3a702e3f57a7" />
+
 
 Observe the VS Code IDE user interface (UI).
 
@@ -157,7 +160,7 @@ Copy a file from Amazon S3 to your local storage in VS Code IDE by using the Bas
 
 The list-buckets.py file should now be listed in the navigation pane.
 
-<img width="958" alt="image" src="https://github.com/user-attachments/assets/bb9b4dce-6af8-40f7-869c-ddababcd6df9" />
+<img width="958" alt="image" src="https://github.com/user-attachments/assets/619a6e26-06d2-4990-a140-f7566449a9d7" />
 
 Open a code file that uses the SDK for Python and run it.
 
@@ -167,7 +170,8 @@ In the Bash terminal window, run the following command to run the code:
 
 python3 list-buckets.py
 
-<img width="958" alt="image" src="https://github.com/user-attachments/assets/bf167568-a3cc-495a-a183-18a3e6f0efb2" />
+<img width="940" alt="image" src="https://github.com/user-attachments/assets/00befdd1-d107-4194-9378-ebdc3edfb85d" />
+
 
 Open a code file that uses the SDK for Python and run it.
 
@@ -186,7 +190,8 @@ Create a new file and upload it to Amazon S3 by using the VS Code IDE CLI.
       <li>Enter the file name index.html</li>
 </ol>
 
-<img width="830" alt="image" src="https://github.com/user-attachments/assets/0c8031d9-bce7-4c20-a095-0c0611daecb2" />
+<img width="830" alt="image" src="https://github.com/user-attachments/assets/2993ac47-564b-4041-ac58-18cadf368536" />
+
 
 <ol>
       <li>Choose OK to create file at the location /home/ec2-user/environment/ .</li>
@@ -196,71 +201,72 @@ Create a new file and upload it to Amazon S3 by using the VS Code IDE CLI.
       upload: ./index.html to s3://333333333-sample-bucket-638296109966/index.html</li>
 </ol>
 
-<img width="959" alt="image" src="https://github.com/user-attachments/assets/f530b9c4-5b29-4020-a966-894ced743ae9" />
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/fde8d571-3af4-4bd3-9fbf-79a20610c55e" />
+
 
 <h2>Update from the café</h2>
 
-<img width="445" alt="image" src="https://github.com/user-attachments/assets/04c0cb11-9c21-43c4-8dc4-c8f2a0c18d5f" />
+<img width="445" alt="image" src="https://github.com/user-attachments/assets/c985f4fc-b586-4726-af4f-465b9fc19723" />
 
 ASofía is pleased that she identified an IDE that has the features that she needs to develop the café website. She likes that VS Code IDE offers a graphical text editor, a file browser, a terminal for running AWS CLI commands, and code that uses the AWS SDKs. She's also glad that she knows about the features of CloudShell because she can open it from the AWS Management Console. CloudShell also provides some features that are similar to VS Code IDE but without the need to run an EC2 instance. 
 In the next lab, Sofia will use VS Code IDE to accomplish her development objectives.
 
-                  import boto3
-                  
-                  BUCKET_NAME = 'YOUR_BUCKET_NAME'
-                  FILE_NAME = 'index.html'
-                  
-                  # setup s3 client named s3_client
-                  s3_client = boto3.client('s3')
-                  
-                  # create a function to put s3 bucket ownership controls with Rules set to BucketOwnerPreferred
-                  def put_bucket_ownership_controls():
-                      response = s3_client.put_bucket_ownership_controls(
-                          Bucket=BUCKET_NAME,
-                          OwnershipControls={
-                              'Rules': [
-                                  {
-                                      'ObjectOwnership': 'BucketOwnerPreferred'
-                                  },
-                              ]
-                          }
-                      )
-                      return response
-                      
-                  # create a function to set public access block values to false
-                  def set_public_access_block():
-                      
-                      response = s3_client.put_public_access_block(
-                          Bucket=BUCKET_NAME,
-                          PublicAccessBlockConfiguration={
-                              'BlockPublicAcls': False,
-                              'IgnorePublicAcls': False,
-                              'BlockPublicPolicy': False,
-                              'RestrictPublicBuckets': False
-                          }
-                      )
-                      return response
-                      
-                  # create a function to allow public access to FILE_NAME
-                  def allow_public_access_to_file():
-                      response = s3_client.put_object_acl(
-                          Bucket=BUCKET_NAME,
-                          Key=FILE_NAME,
-                          ACL='public-read'
-                      )
-                      return response
-                      
-                  # call the functions
-                  put_bucket_ownership_controls()
-                  set_public_access_block()
-                  allow_public_access_to_file()
-                  
-                  <h2> Lab Complete </h2>
-                  © 2024 Amazon Web Services, Inc. and its affiliates. All rights reserved. This work may not be reproduced or redistributed, in whole or in part, without prior written permission from Amazon Web Services, Inc. Commercial copying, lending, or selling is prohibited.
-                  
-                  
-                  
-                  
+      import boto3
+      
+      BUCKET_NAME = 'YOUR_BUCKET_NAME'
+      FILE_NAME = 'index.html'
+      
+      # setup s3 client named s3_client
+      s3_client = boto3.client('s3')
+      
+      # create a function to put s3 bucket ownership controls with Rules set to BucketOwnerPreferred
+      def put_bucket_ownership_controls():
+          response = s3_client.put_bucket_ownership_controls(
+              Bucket=BUCKET_NAME,
+              OwnershipControls={
+                  'Rules': [
+                      {
+                          'ObjectOwnership': 'BucketOwnerPreferred'
+                      },
+                  ]
+              }
+          )
+          return response
+          
+      # create a function to set public access block values to false
+      def set_public_access_block():
+          
+          response = s3_client.put_public_access_block(
+              Bucket=BUCKET_NAME,
+              PublicAccessBlockConfiguration={
+                  'BlockPublicAcls': False,
+                  'IgnorePublicAcls': False,
+                  'BlockPublicPolicy': False,
+                  'RestrictPublicBuckets': False
+              }
+          )
+          return response
+          
+      # create a function to allow public access to FILE_NAME
+      def allow_public_access_to_file():
+          response = s3_client.put_object_acl(
+              Bucket=BUCKET_NAME,
+              Key=FILE_NAME,
+              ACL='public-read'
+          )
+          return response
+          
+      # call the functions
+      put_bucket_ownership_controls()
+      set_public_access_block()
+      allow_public_access_to_file()
+      
+      <h2> Lab Complete </h2>
+      © 2024 Amazon Web Services, Inc. and its affiliates. All rights reserved. This work may not be reproduced or redistributed, in whole or in part, without prior written permission from Amazon Web Services, Inc. Commercial copying, lending, or selling is prohibited.
+      
+
+
+
 
 
 
@@ -286,4 +292,3 @@ In the next lab, Sofia will use VS Code IDE to accomplish her development object
 
 
                                      
-
