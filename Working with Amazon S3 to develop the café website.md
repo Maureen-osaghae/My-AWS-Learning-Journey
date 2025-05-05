@@ -7,7 +7,7 @@ In this lab, you use Amazon Simple Storage Service (Amazon S3) to host a static 
     <li> Create a static website by using Amazon S3. </li>
     <li> Apply a bucket policy on an S3 bucket to configure customized data protection.</li>
     <li> Upload objects to an S3 bucket by using the AWS SDK for Python (Boto3).</li>
-    <li> Configure the website that is hosted on Amazon S3 to be accessible only from a specific IP address range, and test the configuration.</li>
+    <li> Configure the website that is hosted on Amazon S3 to be accessible only from my IP address, and test the configuration.</li>
 </ol>
 
 <h3>Business Scenario</h3>
