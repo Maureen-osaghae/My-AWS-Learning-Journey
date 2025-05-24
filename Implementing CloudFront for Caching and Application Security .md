@@ -785,7 +785,7 @@ A hit indicates that the cache key matches the request, and the object was serve
 
 Refresh the webpage a few times to observe how it behaves. I also notice that the image at the top right of the page still changes on each page refresh, even though the page is fully cached.
 
-Conclusion
+<h2>Conclusion</h2>
 The site will load faster, because CloudFront uses edge locations and can cache web content. By using AWS WAF features, I updated the site so that it is only available on the café office network during this development. I learned to modify how long website files are cached. Finally, I used the CloudFront Functions feature to rotate which dessert is highlighted on the website. Not bad for a day's work! Thanks to AWS re/Start Post Graduate training. 
 
 
