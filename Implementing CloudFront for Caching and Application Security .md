@@ -788,6 +788,8 @@ Refresh the webpage a few times to observe how it behaves. I also notice that th
 <h2>Conclusion</h2>
 The site will load faster, because CloudFront uses edge locations and can cache web content. By using AWS WAF features, I updated the site so that it is only available on the café office network during this development. I learned to modify how long website files are cached. Finally, I used the CloudFront Functions feature to rotate which dessert is highlighted on the website. Not bad for a day's work! Thanks to AWS re/Start Post Graduate training. 
 
+© 2025 Amazon Web Services, Inc. and its affiliates. All rights reserved. This work may not be reproduced or redistributed, in whole or in part, without prior written permission from Amazon Web Services, Inc. Commercial copying, lending, or selling is prohibited.
+
 
 
 
