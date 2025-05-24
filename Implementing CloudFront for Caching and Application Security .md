@@ -258,6 +258,50 @@ At the bottom of the page, choose Save changes.
 
 <img width="959" alt="image" src="https://github.com/user-attachments/assets/b90b5e1d-ee8d-40b1-9897-e24526615e2a" />
 
+I will now retest access to the café website after the update to the bucket policy. Return to the browser tab where the café website is open, and refresh the browser page. I no longer see the site. Instead, I see an AccessDenied error similar to the following image.
+
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/1bfd46b5-5edf-496f-bed5-ac8d649d0e1e" />
+
+Note: This outcome is expected, because I removed the lines from the bucket policy that granted s3:GetObject access for requests coming in from my IP address. I don't want anyone to access the website directly using the Amazon S3 URL. Instead, I want users to access the site through CloudFront.
+
+Next is to verify that the CloudFront distribution is now enabled.
+
+•  Return to the CloudFront console.
+
+• In the left navigation pane, choose Distributions.
+
+•  Verify that the distribution I created now has a Status of Enabled, as shown in the following image.
+
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/2c308266-4afe-4a07-8d54-f92974e64943" />
+
+To Test the CloudFront distribution.
+
+•  Choose the link for the distribution ID.
+
+•  Copy the Distribution domain name URL and open it in a new browser tab.
+
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/23b2e687-d292-4c0a-aa78-303136a5cda1" />
+
+The café website displays. 
+
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/8b5b52ba-4665-41fe-a976-4cf7bed6ee16" />
+
+I try to load the website on a mobile device that is not connected to the same network as my computer. For example, the device is connected to the internet through a cellular connection and not the same WiFi network that my computer is connected to. I notice that you can still access the site.
+      
+Tip: An alternate way to test that the café website is available from another network is to use the AWS Cloud9 IDE. In the terminal, run wget <distribution-domain-name> where <distribution-domain-name> is the distribution URL. If the HTTP request returns an HTTP status code of 200, then the site is available from the AWS Cloud9 instance, which runs on a different network than my computer.
+
+    wget https://d2lqhwjgthgncl.cloudfront.net
+
+<img width="938" alt="image" src="https://github.com/user-attachments/assets/d2efb64c-a77c-41f1-83d3-6b98a8a93933" />
+
+I have successfully created a CloudFront distribution. The website is running on a secure HTTPS connection, and I secured the site so that it is only available through CloudFront. 
+
+<h2>Task 3: Securing network access to the distribution using AWS WAF</h2>
+
+
+
+
+
 
 
 
