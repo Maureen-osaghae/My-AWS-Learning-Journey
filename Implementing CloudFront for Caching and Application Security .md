@@ -186,6 +186,71 @@ Configure the Default cache behavior settings.
 
 <img width="959" alt="image" src="https://github.com/user-attachments/assets/4f80bf3a-a65f-4982-9eec-a76e9d99e785" />
 
+Configure the Cache key and origin requests settings.
+
+◦ Choose Legacy cache settings.
+
+◦ Keep the settings for Headers, Query strings, and Cookies as None.
+
+◦ Object caching: Choose Use origin cache headers.
+         
+Note: Recall the metadata key-value pair with key Cache-Control and value max-age=0. This metadata is set on all of the objects stored in the origin S3 bucket. By choosing Use origin cache headers for this distribution, I ensure that this distribution will inherit this setting applied to all of the objects in the Amazon S3 origin.
+
+◦ Under Web Application Firewall (WAF) choose Do not enable security protections. 
+
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/e3636272-db5e-4637-b0db-11ddd1742475" />
+
+Configure the Settings section of the distribution.
+    
+• Price class: Keep the default Use all edge locations setting.
+    
+• Alternative domain name (CNAME): Do not enter anything.
+
+Note: I could specify a unique domain name here; however, this lab doesn't have one.
+
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/0c680d95-3bab-4c2a-ba8c-7015034ab7d3" />
+
+Custom SSL certificate: Do not enter anything.
+      
+Note: If I owned a domain and had a TLS or SSL certificate from a certificate authority, I would upload it here. For this lab, I will use the default CloudFront certificate (*.cloudfront.net), 
+
+so I do not need to specify a custom certificate.
+
+• Supported HTTP versions: Select HTTP/2.
+
+• Default root object: Enter index.html
+
+• IPv6: Off
+
+Note: This is the café website homepage hosted in the S3 bucket.
+
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/2070e614-0629-4d56-b053-564799600aa9" />
+
+Finally, choose Create distribution. While the distribution is being created, Last modified at the top of the page displays Deploying as shown in the following image.
+
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/a70ee8c8-55bd-4d36-a3a7-e6ca9add5831" />
+
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/338b7e6d-2be1-4a26-bc3d-e001719ef245" />
+
+Note: It might take 5 to 15 minutes for the deployment to complete. However, I can continue to the next step in the lab. 
+
+Update the bucket policy.
+
+• In a new browser tab, navigate to the Amazon S3 console.
+
+• Choose the link for the bucket that has -s3bucket in the name.
+
+• Choose the Permissions tab.
+
+• In the Bucket policy section, choose Edit.
+
+
+
+
+
+
+
+
 
 
 
