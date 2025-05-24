@@ -298,6 +298,36 @@ I have successfully created a CloudFront distribution. The website is running on
 
 <h2>Task 3: Securing network access to the distribution using AWS WAF</h2>
 
+In this task, I will configure the website so that it can only be accessed from a specific IP address range again. In the café scenario, this is the IP address range that Sofía uses to connect to the internet.
+
+Sofía recall that the S3 bucket policy enforced this previously. Now that the website is configured to be accessed through CloudFront, Sofía needs to find an alternative way to implement this. <img width="854" alt="image" src="https://github.com/user-attachments/assets/5a3e1f5d-4642-45e3-a9e2-da10053dae17" />
+
+Sofía will use the AWS WAF service to create an access control list (ACL) to restrict access to the café website. Playing the role of Sofía, First, I will create an IP set for my IP address. In the AWS Management Console, I search for waf and choose WAF & Shield.
+
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/900d2816-b649-46ef-92c7-144e1b034cef" />
+
+In the left navigation pane, I choose IP sets.
+
+• Choose Create IP set and configure: In the left navigation pane, choose IP sets.
+
+• Choose Create IP set and configure:
+
+◦ IP set name: Enter office
+
+◦ Description: Enter office IP
+        
+◦ Region: Choose Global (CloudFront).
+        
+◦ IP addresses: Enter <ip-address>/32 where <ip-address> is my public IPv4 address, as identified by whatismyipaddress.com.
+          
+◦ Choose Create IP set.
+
+![Uploading image.png…]()
+
+      
+
+
+
 
 
 
