@@ -594,6 +594,214 @@ Sofía could configure a CloudFront function to be invoked each time a request c
 
 To invoke the function, Sofía can add code such as the following to the website:
 
+ function changeImage(){
+        
+        var pastry_name_str = "apple_pie";
+
+        if(document.cookie !== "" && document.cookie.split('=')[1] !== ""){
+            pastry_name_str = document.cookie.split("=")[1];
+        }
+        $("[data-role2='special_highlight']")
+                .css({
+                    "background-image": "url(/images/items/" + pastry_name_str + ".png)"
+                });
+    }
+
+This code checks for the existence of a cookie, which CloudFront Functions will add. If the cookie exists, the website will dynamically swap the image to display. 
+The CloudFront Functions code has already been written and made available for me in the resources/website/scripts.main.js file, so I don't need to update the website code in this lab. However, I will need to send a special cookie to the CloudFront distribution. The cookie will reference an image that can be used to override the default image on the website. If the cookie isn't found, the website will display the apple pie image. 
+
+<h2>Task 5: Configuring a CloudFront function on the website</h2>
+
+In this final task, I will create a new CloudFront function, add code to the function to run each time that the café website is loaded and then test the website to verify that the desired result has been achieved.
+
+To Create a CloudFront function.
+   
+• Navigate to the CloudFront console.
+    
+• In the left navigation pane, choose Functions.
+    
+• Choose Create function.
+    
+• For Name, enter random_image_header
+
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/476a950d-05ee-4ead-8562-f087fb1d69e1" />
+
+In the Function code section, replace the existing code with the following code:
+
+    function handler(event) {
+      var
+        pastry_name_arr = [
+            "apple_pie",
+            "apple_pie_slice",
+            "chocolate_chip_cupcake",
+            "strawberry_cupcake",
+            "blueberry_jelly_doughnut",
+            "plain_bagel"
+        ],
+        random_int = Math.floor(Math.random() * (pastry_name_arr.length)),
+        response = event.response,
+        date = new Date(),
+        attr_str = "",
+        distro_str = "dp880v3pwdoto"; //change this
+    
+    date.setTime(+ date + (365 * 86400000)); //24 \* 60 \* 60 \* 100
+    
+    attr_str = "Secure; Path=/; Domain=" + distro_str + ".cloudfront.net; Expires=" + date + ";";
+    
+    response.cookies = {
+        "the_image": {
+            "value": pastry_name_arr[random_int],
+            "attributes": attr_str
+        }
+    };
+    
+    return response;
+    }
+
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/a5275f46-c4af-4b5e-9d01-d606e91e4cfe" />
+
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/237675d7-45aa-4931-a3f1-24ecafd32d95" />
+
+In the code I pasted,  replace the distro_str value of dp880v3pwdoto on line 15, with your unique distribution string value. 
+
+Test the function.
+
+◦ Choose the Test tab.
+
+◦ For Event Type, choose Viewer Response.
+
+◦ Keep the other default settings, and at the bottom of the page, choose Test function.
+
+◦ A results area appears at the bottom of the page. Confirm that the Status is 200 OK. The output should show that a single random item from the pastry_name_array was returned in the cookie.
+
+<img width="779" alt="image" src="https://github.com/user-attachments/assets/6602e68a-30fd-478a-8667-34e0811487a4" />
+
+<img width="956" alt="image" src="https://github.com/user-attachments/assets/5641e855-123b-47ac-a321-e8a9f1dc09c3" />
+
+I publish the CloudFront function, and associate it with the CloudFront distribution.
+   
+• Choose the Publish tab.
+   
+• Choose Publish function.
+
+A message at the top of the page indicates that the random_image_header function was successfully published.
+
+<img width="956" alt="image" src="https://github.com/user-attachments/assets/0cd243c8-552c-410f-ba9b-5164aded98f3" />
+
+In the Associated distributions section, choose Add association and configure:
+        
+◦ Distribution: Choose the distribution.
+        
+◦ Event type: Choose Viewer Response.
+        
+◦ Cache behavior: Select Default (*).
+        
+◦ Choose Add association.
+
+<img width="408" alt="image" src="https://github.com/user-attachments/assets/8b63d3a0-a0c4-47ce-8a80-82be02e46951" />
+
+In the left navigation pane, choose Distributions. I notice that the distribution is being deployed again.
+
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/27ae5a59-7508-4e52-bae0-fb56b25268fe" />
+
+To Test the functionality on the café website. I Return to the café website browser tab, and refresh the page a few times. Each time I refresh, the graphic that appears to the right of the cup of coffee should change.
+
+<img width="956" alt="image" src="https://github.com/user-attachments/assets/a3820174-ce9a-4573-b200-85d0c18b26c9" />
+
+<img width="958" alt="image" src="https://github.com/user-attachments/assets/56e794a2-b6d7-487e-bdf7-8edaa35362c9" />
+
+I have successfully implemented a CloudFront function on the website.
+
+<h2>Task 6: Adjusting the cache duration</h2>
+
+Recall from earlier in the lab that all objects in the website S3 bucket have a metadata key-value for Cache-Control with the value set to max-age=0. In addition, recall that when I configured the CloudFront distribution, I chose to use the legacy cache settings and let the origin cache headers determine the object caching behavior. I also configured the CloudFront distribution with a path pattern of *, which means that the distribution will forward all object requests to the origin (the S3 bucket). 
+
+During development, these configurations helped Sofía to immediately notice the effect of any changes made. However, now that the distribution has been tested and found to be stable, Sofía has decided to adjust the caching settings. 
+
+Confirm the cache settings that are in place on the café website.
+
+• Return to the café website browser tab.
+
+• Open the context menu (right-click) on the page and choose Inspect (if using Chrome) .
+
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/1059bc55-ae9f-403b-8471-b3c8e13e2149" />
+
+In the developer tools area that appears,  choose the Network tab. Next, refresh the café website by using the browser's refresh icon. A list of all the files and accessed locations displays in the developer tools area.
+
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/bcd9c254-1d8d-4cd4-bb4f-0d7e9548bcb8" />
+
+At the top of the file list, choose the CloudFront distribution URL (the URL ends in cloudfront.net).
+
+Analyze the Response Headers information.
+       
+◦ Notice the header cache-control: max-age=0.
+       
+◦ Also notice the header x-cache: RefreshHit from cloudfront. (In Firefox, it says Miss from cloudfront.) This means that a matching cache key wasn't found in the cache.
+
+<img width="957" alt="image" src="https://github.com/user-attachments/assets/e12dde2e-d324-4029-bc6f-4ff5f1917828" />
+
+Sofía has a functional CloudFront distribution, but the configuration isn't taking advantage of the caching features. She could remove the Cache-Control metadata from all of the S3 objects and then update the behavior settings in the CloudFront distribution to use the CloudFront CachingOptimized managed policy. That would apply a default time to live (TTL) of 86,400 seconds (24 hours) to the requested objects. However, that cache setting would be too long for testing purposes.
+
+Sofía decides to begin by applying a caching file expiration time of 3 minutes for testing purposes. She decides to make this change by updating the origin response headers. In this case, the origin is the S3 bucket, and the response headers are configured by updating the Cache-Control key-value pairs set on the Amazon S3 objects. After Sofía finishes testing, she can remove the Cache-Control metadata from the objects in the S3 bucket and use the CloudFront cache settings to control the cache file expiration behavior.
+
+To edit the Cache-Control header set on each object in the S3 bucket.
+    
+• Navigate to the Amazon S3 console.
+    
+• Choose the link for the bucket that has -s3bucket in the name.
+    
+• To select all of the files in the bucket, check the box at the top left of the objects list, to the left of the Name column, as shown in the following image.
+
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/8dbcdbfa-40b5-4e79-814a-f39edb529ad0" />
+
+To edit metadata
+Choose Actions, Edit metadata.
+
+• Choose Add metadata and configure:
+
+◦ Type: Choose System defined.
+
+◦ Key: Choose Cache-Control.
+
+◦ Value: Enter max-age=180 (This is 180 seconds, or 3 minutes.)
+
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/851b3e05-8326-4a79-a404-d743a7b8fa6c" />
+
+At the bottom of the page, choose Save changes.
+
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/080a0b73-1736-4282-9d03-016efd8876ee" />
+
+Test the effects of updating the caching settings on the CloudFront origin (the S3 bucket).
+
+• Reload the café website.
+   
+• In the developer tools area, notice that the new max-age setting of 180 seconds was applied to the cache.
+   
+• Notice that x-cache now says Hit from cloudfront, as shown in the following image.
+      
+A hit indicates that the cache key matches the request, and the object was served from the CloudFront edge cache.
+
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/7dc5f77b-de0c-4d07-a944-742527e1ba89" />
+
+Refresh the webpage a few times to observe how it behaves. I also notice that the image at the top right of the page still changes on each page refresh, even though the page is fully cached.
+
+Conclusion
+The site will load faster, because CloudFront uses edge locations and can cache web content. By using AWS WAF features, I updated the site so that it is only available on the café office network during this development. I learned to modify how long website files are cached. Finally, I used the CloudFront Functions feature to rotate which dessert is highlighted on the website. Not bad for a day's work! Thanks to AWS re/Start Post Graduate training. 
+
+
+
+
+
+
+
+
+
+
+
+
+      
+
+
 
 
 
