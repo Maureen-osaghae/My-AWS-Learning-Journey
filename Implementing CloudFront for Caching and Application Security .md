@@ -322,7 +322,84 @@ In the left navigation pane, I choose IP sets.
           
 ◦ Choose Create IP set.
 
-![Uploading image.png…]()
+<img width="854" alt="image" src="https://github.com/user-attachments/assets/ec9b6b6d-7c97-4a7f-bb1a-a2e28b4e1991" />
+
+![image](https://github.com/user-attachments/assets/77bb1da3-ec74-4022-b420-0f6ec18b113d)
+
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/b94b9209-2ea3-4852-9730-ec3496b24c54" />
+
+Begin to create a web ACL.
+
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/45263b6f-a317-4dd5-8e4c-3dfaf57f5514" />
+
+• In the left navigation pane, choose Web ACLs.
+
+• Choose Create web ACL.
+
+• In the Web ACL details section, configure:
+
+◦ Resource type: Choose CloudFront distributions.
+        
+◦ Name: Enter cafe-website-office-only-during-dev
+        
+◦ Description: Enter Allow access to the cafe website through CloudFront from the cafe office
+    
+• CloudWatch metric name: Enter cafe-website-office-only-during-dev
+
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/003b987a-5c3a-4446-8651-0bba0703bac2" />
+
+In the Associated AWS resources section, configure:
+
+◦ Choose Add AWS resources.
+
+◦ Select the CloudFront distribution that you created.
+
+◦ Choose Add.
+        
+◦ Select the CloudFront distribution again, and then choose Next.
+
+<img width="605" alt="image" src="https://github.com/user-attachments/assets/5e0f2d3b-dfb4-4bb6-bc7b-0ed64453b295" />
+
+Add a rule to the web ACL configuration to allow requests from the office IP set. In the Rules section, choose Add rules, Add my own rules and rule groups.
+   
+• Rule type: Choose IP set.
+
+• Name: Enter only_office_please
+
+• IP set: Choose the office IP set that I just created.
+
+• IP address to use as the originating address: Keep the default Source IP address setting.
+
+• Action: Choose Allow.
+
+• Choose Add rule.
+
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/9698922c-b851-4b47-95c8-39b58653f29a" />
+
+Set the rule priority, configure metrics, and create the web ACL.
+
+◦  Choose the only_office_please rule.
+
+◦ Choose Next.
+
+◦ Keep all of the default metrics settings, and choose Next again.
+
+◦ Review the settings, and at the bottom of the page, choose Create web ACL.
+
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/8bedf007-dd7b-4667-b774-220e1c5c48dc" />
+
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/afaf5a14-130d-450f-a27e-1d074a9db0de" />
+
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/02070506-d3d2-4701-af3e-d9e50e587f26" />
+
+
+
+
+
+
+
+
+
 
       
 
