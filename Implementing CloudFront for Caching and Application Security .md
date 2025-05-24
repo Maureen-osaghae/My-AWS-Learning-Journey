@@ -421,6 +421,198 @@ I have blocked direct access to the website through Amazon S3, configured a glob
 <h3>Analysis: </h3>
 At this point, because my CloudFront distribution URL has an obscure value, someone would need to both guess the URL and use my IP address to access the website. Doing this would be difficult for anyone other than myself. However, to truly secure the site, I should configure a login system. In a later lab, I will use the Amazon Cognito service to implement authentication and to secure parts of the website.
 
+</h2>Task 4: Securing a REST API endpoint using AWS WAF</h2>
+
+The café website is now configured so that it can only be viewed from the café office network (my IP address). However, the REST API URLs that the website's AJAX use are not yet secured and could be invoked from anywhere on the internet.
+In this task, I will secure access to one of the REST API endpoints.
+
+Create a regional AWS WAF IP set. 
+
+• Return to the WAF & Shield console.
+
+• In the left navigation pane, choose IP sets.
+
+• Choose Create IP set and configure:
+
+◦ IP set name: Enter office_regional
+
+◦ Description: Enter IP of the office for API Gateway
+
+◦ Region: Choose US East (N. Virginia).
+        
+◦ IP addresses: Enter <ip-address>/32 where <ip-address> is your public IPv4 address, as identified by whatismyipaddress.com.
+
+<img width="678" alt="image" src="https://github.com/user-attachments/assets/c0dabf08-b801-4fd1-8211-5653e6b14b4f" />
+
+Choose Create IP set.
+
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/710862b4-bc5f-499d-99e3-6bae583a5d9c" />
+
+Begin to create a regional web ACL.
+   
+• In the left navigation pane, choose Web ACLs.
+   
+• Choose Create web ACL.
+    
+• In the Web ACL details section, configure:
+       
+◦ Resource type: Choose Regional resources.
+
+◦ Region: Choose US East (N. Virginia).
+
+◦ Name: Enter website-api-gw-office-only-during-dev
+        
+◦ Description: Enter To allow us to access the API GW calls used by the website from the office
+        
+◦ CloudWatch metric name: Enter website-api-gw-office-only-during-dev
+
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/d37d7e68-794a-4c29-8191-100a06264609" />
+
+In the Associated AWS resources section, configure:
+
+◦ Choose Add AWS resources.
+
+◦ For Resource type, select Amazon API Gateway.
+
+◦ Select the ProductsApi - prod API Gateway resource.
+
+◦ Choose Add.
+        
+◦ Select the ProductsApi - prod resource again, and then choose Next.
+
+<img width="632" alt="image" src="https://github.com/user-attachments/assets/350e733c-3870-4e8c-855f-27b32f621e21" />
+
+Add a rule to the web ACL configuration to allow requests from API Gateway.
+
+◦ In the Rules section, choose Add rules, Add my own rules and rule groups.
+
+◦ Rule type: Choose IP set.
+
+◦ Name: Enter ip_for_apigw
+
+◦ IP set: Choose the office_regional IP set that I just created.
+
+◦ IP address to use as the originating address: Keep the default Source IP address setting.
+
+◦ Action: Choose Allow.
+
+◦ Choose Add rule.
+
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/00ca72e0-6150-4d5f-a948-3c1475827581" />
+
+Update the new web ACL rule to block any requests that don't match the rule.
+
+◦ In the Rules section, select the ip_for_apigw rule.
+
+◦ In the Default web ACL action section, for Default action, choose Block.
+
+◦ Choose Next.
+
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/6b59a41f-c9d3-42b5-93e5-5577f52b1a1e" />
+
+Set the rule priority, configure metrics, and create the web ACL.
+
+◦ Choose the ip_for_apigw rule.
+
+◦ Choose Next.
+
+◦ Keep all of the default metrics settings, and choose Next again.
+
+◦ Review the settings, and at the bottom of the page, choose Create web ACL.
+
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/f1982e17-17ac-4631-8f66-49f9aeb6c5f1" />
+
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/714de6cd-3572-42d2-a05b-4adb87988f87" />
+
+When the web ACL creation process is complete, check the resources associated with the ACL.
+
+◦ Choose the link for the website-api-gw-office-only-during-dev ACL, which you just created.
+
+◦ Choose the Associated AWS resources tab.
+
+◦ Confirm that the ProductsApi - prod resource is listed. If it isn't, add it:
+
+▪ Choose Add AWS resources.
+
+▪ Choose the ProductsApi - prod resource.
+
+▪ Choose Add.
+    
+• In a new browser tab, go to the API Gateway console.
+
+<img width="956" alt="image" src="https://github.com/user-attachments/assets/a2dbb9b1-ba66-441f-afe2-271f37ce9507" />
+
+Test the new ACL from my computer.
+  
+• In a new browser tab, go to the API Gateway console.
+
+• Choose the link for the ProductsApi.
+
+• In the left navigation pane, choose Stages.
+
+• In the Stages navigation pane, expand the prod stage.
+
+• Under /bean_products, choose GET.
+
+<img width="953" alt="image" src="https://github.com/user-attachments/assets/32f21c60-a24c-45c6-8c39-912a201fb1bc" />
+
+I copy the Invoke URL, which has the format https://osztaz88f3.execute-api.us-east-1.amazonaws.com/prod/bean_products, and load the URL in a new browser tab. 
+
+A JSON-formatted document with product information displays. This is the expected behavior. 
+
+<img width="698" alt="image" src="https://github.com/user-attachments/assets/f33b4663-bbfb-48fe-846e-4dc1b9eea14c" />
+
+Test the new ACL from another network.
+
+ On the browser tab on my computer where I just opened the invoke URL, I open the context menu (right-click) for the page and choose Create QR Code for this page as shown in the following image.
+
+A pop-up window displays a QR code as shown in the following image. I will keep the window open and continue to the next step.
+
+<img width="237" alt="image" src="https://github.com/user-attachments/assets/a8b74e45-42f4-4982-8823-ff8bb8778d93" />
+
+Verify that my mobile device is not connected to the same network as my computer.
+    
+• On my mobile device, I use the camera app or a QR Code reader app to scan the QR Code on my computer.
+   
+• The app prompts me to load the link. The page displays {"message": "Forbidden"}. This is the expected behavior.
+
+![image](https://github.com/user-attachments/assets/617c1db2-0fe1-4c39-944a-a1e6a76ddf34)
+
+The AJAX URI that the café website uses is now also secured so that it can only be invoked from the café network (my computer). In a later lab,  I will secure access to the coffee suppliers web application. 
+
+<h3>Analysis: </h3>
+To use AWS WAF to make the suppliers application available only from the café's office IP address, I would need to use an Application Load Balancer. To use a load balancer, I would need to upgrade the Elastic Beanstalk application. However, because the suppliers website is not meant for public access, even when the website moves to production, this method would not be sufficient to try to secure the website. So I decides to leave the suppliers website configuration as it is for now. In a later lab, I will implement authentication to properly secure that part of the site. 
+
+<h2>How the café plans to use a CloudFront function</h2>
+ This section explains how the café will use a CloudFront function. I don't have any steps to complete until I get to the next task.
+Frank is pleased that the café website has been secured and cannot be accessed outside of the café's office network during this development phase. However, it seems that an effective cloud developer's work is never done because Frank has one more request.
+
+He can't decide which promotional image to use on the homepage. He likes the apple pie image, but he also likes the pictures of his homemade pastries. He has asked Sofía (me) if it's possible to randomly display an image from a collection when the site is loaded.
+
+Sofía first considered using JavaScript code on the client side to randomize the image. However, she chatted with Faythe, the AWS developer who often comes into the café to get a morning coffee. Faythe mentioned that Sofía could use the CloudFront Functions feature to achieve the same result.
+Sofía could configure a CloudFront function to be invoked each time a request comes into (or out of) CloudFront. Therefore, she could manage the randomize logic at the edge rather than bloating the website with randomizing code logic.
+
+To invoke the function, Sofía can add code such as the following to the website:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
