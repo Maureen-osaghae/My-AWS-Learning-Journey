@@ -118,6 +118,85 @@ to set this metadata value on every file that it uploaded to the bucket.
 
 <img width="953" alt="image" src="https://github.com/user-attachments/assets/3803cc49-c4ac-4563-998b-be54425d1459" />
 
+At the top of the page, open the Object URL in a new browser tab. The café website displays. 
+
+<img width="823" alt="image" src="https://github.com/user-attachments/assets/f1c8c7c2-9ea9-493a-ae7e-fd409c62b6ce" />
+
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/ce369b43-0d76-47ec-8aef-d310c3a95b42" />
+
+ I will return to it later in this lab.
+
+ <h2>Task 2: Configuring a distribution for static website content</h2>
+
+ In this task, I will configure the café website, which is hosted on Amazon S3, to be available through a CloudFront distribution. With the distribution, I can enable HTTPS access to the website.
+
+ <h3>Detailed analysis: </h3>
+Sofía Recall from earlier labs that static website hosting, which would make the site available at https://.s3-website.amazon.com, is not configured on the café website S3 bucket. Instead, she access the website by loading the Object URL of the index.html file from the bucket, which is in the form http://.s3.amazon.com/index.html. Therefore, the site is not currently accessed using HTTPS. Sofía hasn't worried about this until now, because she knew she would integrate other AWS services into the website design and would use CloudFront as part of the final application design. 
+
+I will Begin to configure a CloudFront distribution for the café website hosted on Amazon S3.
+        
+◦  Navigate to the CloudFront console.
+
+◦  Choose Create a CloudFront distribution.
+
+This step is very crucial,  I will configure several settings for the distribution over the next few steps. I pay careful attention not to miss any steps. 
+
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/68f81948-c1b7-45c9-bbdc-816ef674458a" />
+
+First is to Configure the Origin settings for the distribution.
+
+◦  Origin domain: Search for and choose the S3 bucket that has -s3bucket in the name. This bucket contains the website code.
+
+<img width="955" alt="image" src="https://github.com/user-attachments/assets/b066621f-16d9-4a56-a52f-c6616eb0c82e" />
+
+• In the Origin access settings. 
+
+◦ Choose Legacy access identities.
+
+◦ Choose Create new OAI.
+
+◦ Name: Enter access-identity-cafe-website
+
+◦ Choose Create.
+<img width="535" alt="image" src="https://github.com/user-attachments/assets/fb7724b6-10c2-4a63-9a88-3f383e652590" />
+
+◦ Bucket policy: Choose Yes, update the bucket policy.
+
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/9381d402-ac49-4383-b1da-bbec1b480fe1" />
+
+In the Add custom header section, choose Add header and configure:
+
+◦ Header name: Enter cf
+
+◦ Value: Enter 1
+
+ Note: The custom header is not an important requirement for this lab, but it will be useful in a later lab.
+
+ <img width="959" alt="image" src="https://github.com/user-attachments/assets/cdd719fa-7a3d-417d-a0f2-c89a9725e2ce" />
+
+Configure the Default cache behavior settings.
+
+◦ Path pattern: Keep the Default (*) setting. This means that all requests will go to the origin.
+        
+◦ Viewer protocol policy: Choose Redirect HTTP to HTTPS. This will help users find the website, even if they load the HTTP URL.
+
+◦ Allowed HTTP methods: Keep the default GET, HEAD setting.
+        
+◦ Restrict viewer access: Keep the default No setting. This will be a public website.
+
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/4f80bf3a-a65f-4982-9eec-a76e9d99e785" />
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
