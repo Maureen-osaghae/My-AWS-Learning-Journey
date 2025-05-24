@@ -244,6 +244,25 @@ Update the bucket policy.
 
 • In the Bucket policy section, choose Edit.
 
+In the Policy code section, delete lines 4 through 17, which are highlighted in the following image. 
+
+<img width="955" alt="image" src="https://github.com/user-attachments/assets/1279385d-711f-4c3f-98f4-7f833fec5803" />
+
+In the Bucket policy section, choose Edit. In the Policy code section, I delete lines 4 through 17, which are highlighted in the following image. 
+
+![image](https://github.com/user-attachments/assets/c877eb78-93a5-41d1-aa43-b44e3f5318c2)
+
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/5de3bb24-39d1-4b74-84ac-0d9c2c5e4af6" />
+
+At the bottom of the page, choose Save changes.
+
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/b90b5e1d-ee8d-40b1-9897-e24526615e2a" />
+
+
+
+
+
+
 
 
 
