@@ -392,6 +392,37 @@ Set the rule priority, configure metrics, and create the web ACL.
 
 <img width="959" alt="image" src="https://github.com/user-attachments/assets/02070506-d3d2-4701-af3e-d9e50e587f26" />
 
+Confirm that the web ACL configuration has been applied to the CloudFront distribution.
+       
+◦ Return to the CloudFront console.
+
+◦ In the left navigation pane, choose Distributions.
+
+◦ Note: The Last modified column might display Deploying for the distribution. The deployment will complete within about 5 minutes; however, I can proceed to the next step without waiting.
+
+◦ Choose the link for the distribution ID.
+
+◦ In the Security section, I notice that the distribution now has an AWS WAF value.
+
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/852655d0-787f-417b-8f34-8cce6ec8cdab" />
+
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/2731e591-0dfc-44dd-a953-5d4725a36f6b" />
+
+Test the AWS WAF configuration that was applied to the CloudFront distribution. Return to the browser tab where the café website is open, and refresh the browser page. The website displays, because my computer's IP address is in the IP set that I specified when I configured the web ACL.
+Next, I try to load the website on a mobile device that is not connected to the same network as your computer. For example, the device is connected to the internet through a cellular connection and not the same WiFi network that my computer is connected to.
+
+Next, I try to load the website on a mobile device that is not connected to the same network as my computer. For example, the device is connected to the internet through a cellular connection and not the same WiFi network that my computer is connected to.
+I could not access the site through a different network now.
+
+![image](https://github.com/user-attachments/assets/cf0dceea-c75c-4684-aacd-20a0b8744e1e)
+
+I have blocked direct access to the website through Amazon S3, configured a global CDN, and also secured the website to prevent anyone who isn't using my IP address from viewing the café website during this development phase.
+
+<h3>Analysis: </h3>
+At this point, because my CloudFront distribution URL has an obscure value, someone would need to both guess the URL and use my IP address to access the website. Doing this would be difficult for anyone other than myself. However, to truly secure the site, I should configure a login system. In a later lab, I will use the Amazon Cognito service to implement authentication and to secure parts of the website.
+
+
+
 
 
 
