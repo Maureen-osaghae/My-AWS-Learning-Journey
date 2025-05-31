@@ -201,50 +201,50 @@ In the DynamoDB console, choose Run again and review the Items returned list. Wh
 
 <img width="779" alt="image" src="https://github.com/user-attachments/assets/b7d89662-7c91-47d2-acb8-be1e43e231a6" />
 
-Now, try to insert a record with an existing primary key and a different product_id value. 
+Now, I try to insert a record with an existing primary key and a different product_id value. 
 Update the JSON record:
 <ol>
       <li>Return to the AWS Cloud9 IDE and the not_an_existing_product.json file.</li>
-      <li>Don't change the value of product_name.</li>
-      <li>Replace the product_id value of <676767676767> with 3333333333</li>
-      <li>In the upper left, choose File > Save to save your changes</li>
+      <li>I did not change the value of product_name.</li>
+      <li> I simply replace the product_id value of <676767676767> with 3333333333</li>
+      <li>In the upper left, choose File > Save to save my changes</li>
 </ol>
 
 <img width="958" alt="image" src="https://github.com/user-attachments/assets/d81092f5-a4d9-4ac7-bb15-afb53a202724" />
 
-Run the previous AWS CLI put-item command again: View the table data in the DynamoDB item explorer by choosing Run. 
+I Ran the previous AWS CLI put-item command again: View the table data in the DynamoDB item explorer by choosing Run. 
 
 <img width="832" alt="image" src="https://github.com/user-attachments/assets/04bf2ba3-a7ba-49b1-b958-518857298799" />
 
 <h3>Analysis:</h3> 
 
 The product_id value of the best pie record was replaced with the new value of product_id.
-However, you don't want this behaviour. You want separate operations for adding new products and for updating product attributes. 
-To implement this feature, you can refine the behavior of the put-item command with condition expressions. 
+However, I don't want this behaviour. I want separate operations for adding new products and for updating product attributes. 
+To implement this feature, I can refine the behavior of the put-item command with condition expressions. 
 
-You can use condition expressions to determine which item should be modified. In this case, you must prevent records from being overwritten if they already exist in the table. The <bold>attribute_not_exists()</bold> function provides this capability.
-Next, test the condition expression. You try to insert another version of the record for best pie. 
+I can use condition expressions to determine which item should be modified. In this case, I must prevent records from being overwritten if they already exist in the table. The <bold>attribute_not_exists()</bold> function provides this capability.
+Next, test the condition expression. I try to insert another version of the record for best pie. 
 
-Update the JSON record:
+To update the JSON record:
 <ol>
       <li>Return to the AWS Cloud9 IDE and the not_an_existing_product.json file.</li>
-      <li>Don't change the value of product_name.</li>
-      <li>Replace the product_id value of <3333333333> with 2222222222</li>
+      <li>I did not change the value of product_name.</li>
+      <li>I only the product_id value of <3333333333> with 2222222222</li>
 </ol>
 
 <img width="959" alt="image" src="https://github.com/user-attachments/assets/10c3d76f-6a3a-4b84-99fb-c4a0d8470a16" />
 
-Save your changes.
+Save my changes.
 
-       In the AWS Cloud9 terminal, run the following AWS CLI put-item command:
+In the AWS Cloud9 terminal, run the following AWS CLI put-item command:
 
-aws dynamodb put-item \
---table-name FoodProducts \
---item file://../resources/an_existing_product.json \
---condition-expression "attribute_not_exists(product_name)" \
---region us-east-1
+      aws dynamodb put-item \
+      --table-name FoodProducts \
+      --item file://../resources/an_existing_product.json \
+      --condition-expression "attribute_not_exists(product_name)" \
+      --region us-east-1
 
-The command should return this output: 
+The command return this output: 
 
 <img width="959" alt="image" src="https://github.com/user-attachments/assets/503e46c8-09c7-4d7d-856b-af2527e1580d" />
 
@@ -253,12 +253,12 @@ This behavior is expected because the condition expression prevented an overwrit
 <h2>Task 4: Adding and modifying a single item by using the SDK</h2>
 
 Sofía now has a good understanding of how to use the AWS CLI to control the data that is inserted into the table. She knows that the behavior for inserting data is similar with the SDK. She decides to write to the table by using Python code. 
-In this task, you continue as Sofia to add and modify a single item by using the SDK.
+In this task, I continue as Sofia to add and modify a single item by using the SDK.
 Update the conditional_put.py script.
 <ol>
       <li>In the AWS Cloud9 IDE, go to the python_3 directory.</li>
       <li>Open the conditional_put.py script.</li>
-      <li>Replace the <FMI> placeholders as directed in the script. You can also refer to the code analysis in the following step.</li>
+      <li>Replace the <FMI> placeholders as directed in the script. I can also refer to the code analysis in the following step.</li>
 </ol>
 
 <img width="689" alt="image" src="https://github.com/user-attachments/assets/720973ff-f59f-4224-a6bd-c3b249791a1a" />
@@ -266,21 +266,21 @@ Update the conditional_put.py script.
 <img width="958" alt="image" src="https://github.com/user-attachments/assets/a9905810-6cc2-4c83-ba40-922b9521bdf5" />
 <img width="908" alt="image" src="https://github.com/user-attachments/assets/8d537e85-d17d-461c-bab2-717d1c6b74a2" />
 
-In the upper left, choose File > Save to save your changes. 
-Review the code to understand what it does:
+In the upper left, choose File > Save to save my changes. 
+I review the code to understand what it does:
 <ol>
       <li>Focus on the definition of the response variable, which begins on line 49. </li>
-      <li>Notice the call to the put_item operation. In the SDK for Python, the put_item operation is equivalent to the put-item command in the AWS CLI.</li>
+      <li> I notice the call to the put_item operation. In the SDK for Python, the put_item operation is equivalent to the put-item command in the AWS CLI.</li>
       <li>The put_item SDK operation requires a value for Item, which defines the record that is inserted into the table.</li>
 </ol>
 
 In the AWS Cloud9 terminal, run the file. 
 
-python3 conditional_put.py
+      python3 conditional_put.py
 
 <img width="959" alt="image" src="https://github.com/user-attachments/assets/d69ea04f-d5a5-4cc6-90d6-6ea802fa598e" />
 
-Return to the DynamoDB item explorer, and review the updated data. You should find an entry for apple pie:
+Return to the DynamoDB item explorer, and review the updated data. 
 
 <img width="959" alt="image" src="https://github.com/user-attachments/assets/21a4799e-c319-4abf-94fc-99e682f028a4" />
 
@@ -289,8 +289,7 @@ In the AWS Cloud9 IDE, update the conditional_put.py script again. This time, re
 <img width="731" alt="image" src="https://github.com/user-attachments/assets/f1963f0e-85b4-475a-8d02-a887223bd513" />
 
 Run the script again: In the DynamoDB item explorer, review the table data. 
-As you might expect, the item remains unchanged. Because the condition attribute_not_exists(product_name) was included in the put_item operation, the item was not overwritten. This failure behaviour is exactly the behaviour that you want.
-What do you think will happen if you change only the product name (primary key) to cherry pie but keep the same attributes using that conditional expression?
+As you might expect, the item remains unchanged. Because the condition attribute_not_exists(product_name) was included in the put_item operation, the item was not overwritten. This failure behaviour is exactly the behaviour that I want.
 
 In the AWS Cloud9 IDE, update the conditional_put.py script by replacing the product_name value of <apple pie> to cherry pie and saving the file. 
 
@@ -303,21 +302,22 @@ Run the python3 conditional_put.py again.  In the DynamoDB item explorer, review
 <h2>Task 5: Adding multiple items by using the SDK and batch processing</h2>
 
 Sofía is glad that the café staff will be able to load individual records into the table. However, she knows that it isn't scalable for café staff to load records into the database one at a time. She knows that it's more efficient to use a batch process for loading a large quantity of records at one time. 
-In this task, you continue as Sofía to implement batch processing by using the SDK.
-Because this batch load contains all product records, you must delete all existing records from the table before you run it.
 
-Delete all records:
+In this task, I continue as Sofía to implement batch processing by using the SDK.
+Because this batch load contains all product records, I must delete all existing records from the table before I run it.
+
+To delete all records:
 <ol>
           <li>Select the check boxes for all the table records. </li>
           <li>From the Actions menu, choose Delete item(s). </li>
           <li>In the pop-up window confirmation box, enter Delete and choose Delete items</li>
 </ol>
 
-In the AWS Cloud9 IDE, open the resources > test.json file, and review the data. This file contains six records that you use to test the batch-load script. Notice that this file contains multiple entries for apple pie on purpose.
+In the AWS Cloud9 IDE, open the resources > test.json file, and review the data. This file contains six records that I use to test the batch-load script. Notice that this file contains multiple entries for apple pie on purpose.
 
 <img width="958" alt="image" src="https://github.com/user-attachments/assets/4096be48-5872-4ba0-b9dd-f515c6355409" />
 
-Now, update the script that performs the batch load. Update the test_batch_put.py script:
+Now, I will update the script that performs the batch load. Update the test_batch_put.py script:
 <ol>
       <li>In the AWS Cloud9 IDE, open the python_3 > test_batch_put.py script.</li>
       <li>Update the <FMI_1> placeholder with the FoodProducts table name. </li>
@@ -327,40 +327,41 @@ Now, update the script that performs the batch load. Update the test_batch_put.p
 
 <img width="959" alt="image" src="https://github.com/user-attachments/assets/244a4a91-bc0c-47c5-ae84-6a5d20cbfcfc" />
 
-To understand what the script does, review the code:
+To understand what the script does, I review the code:
 <ol>
       <li>The table that will be written to by the script is defined in the table variable on line 11. </li>
       <li>The with statement that begins on line 12 calls batch_writer(), which opens the connection to the database. </li>
       <li>Then, the code loops through each record and inserts the new data into the FoodProducts table:</li>
 </ol>
 
-table = DDB.Table('FoodProducts')
-with table.batch_writer(overwrite_by_pkeys=['product_name']) as batch:
-   for food in food_list:
-       price_in_cents = food['price_in_cents']
-       product_name = food['product_name']
+      table = DDB.Table('FoodProducts')
+      with table.batch_writer(overwrite_by_pkeys=['product_name']) as batch:
+         for food in food_list:
+             price_in_cents = food['price_in_cents']
+             product_name = food['product_name']
 
 In the AWS Cloud9 terminal, run the file: 
-python3 test_batch_put.py
 
-After the script completes, the terminal should show the following output: 
+      python3 test_batch_put.py
+
+After the script completes, the terminal show the following output: 
 
 <img width="959" alt="image" src="https://github.com/user-attachments/assets/70761fdc-7f68-4de7-b79f-e7f80c70c2a1" />
 
-What is the price_in_cents value that you expect to find for apple_pie? Validate your theory by checking the data in the console. 
+What is the price_in_cents value that I expect to find for apple_pie? Validate my theory by checking the data in the console. 
 In the DynamoDB Item explorer, select the FoodProducts table, and run the scan again. 
 
 <img width="706" alt="image" src="https://github.com/user-attachments/assets/be8c08cd-e3e7-4d86-9340-3d00ea2d4af2" />
 
 Instead of keeping the first value of price_in_cents, for apple_pie, the most recent value in the data file was applied. Why did this behavior happen?
-With single-item PUT requests (put_item), you can avoid overwriting duplicate records by including a condition. However, with batch inserts, you have two options for handling duplicate keys. You can either allow the overwrite, or you can cause the entire batch process to fail. 
+With single-item PUT requests (put_item), I can avoid overwriting duplicate records by including a condition. However, with batch inserts, I have two options for handling duplicate keys. I can either allow the overwrite, or I can cause the entire batch process to fail. 
 
-Review the test_batch_put.py script again. Focus on line 12. The overwrite_by_pkeys=['product_name'] parameter is included in the batch_writer method. This parameter tells DynamoDB to use last write wins if the key already exists. Last write wins is why the price_in_cents attribute was updated for apple pie. 
-However, you know that the café doesn't want the database to add incorrect values. For this dataset, it's better for the load to fail when duplicate product_name values are found instead of allowing the update to add incorrect values. 
+I review the test_batch_put.py script again. Focus on line 12. The overwrite_by_pkeys=['product_name'] parameter is included in the batch_writer method. This parameter tells DynamoDB to use last write wins if the key already exists. Last write wins is why the price_in_cents attribute was updated for apple pie. 
+However, I know that the café doesn't want the database to add incorrect values. For this dataset, it's better for the load to fail when duplicate product_name values are found instead of allowing the update to add incorrect values. 
 
-you must change the script so that it fails when duplicates are included in the batch. You can then review and clean up the data. To implement this feature, you remove the overwrite_by_pkeys parameter from the batch_writer method. To prepare for the production data load, go to the browser tab with the DynamoDB console, and delete all records from the table as you did in the previous steps. 
+I must change the script so that it fails when duplicates are included in the batch. I can then review and clean up the data. To implement this feature, I will remove the overwrite_by_pkeys parameter from the batch_writer method. To prepare for the production data load, go to the browser tab with the DynamoDB console, and delete all records from the table as I did in the previous steps. 
 
-You can fix the overwrite behavior by updating the test_batch_put.py script and preparing to load the production data. 
+I can fix the overwrite behavior by updating the test_batch_put.py script and preparing to load the production data. 
 <ol>
       <li>In the AWS Cloud9 IDE, open python_3 > test_batch_put.py.</li>
       <li>Update line 12 by changing <with table.batch_writer(overwrite_by_pkeys=['product_name']) as batch> to the following and saving the file:</li>
@@ -370,36 +371,39 @@ with table.batch_writer() as batch:
 
 <img width="959" alt="image" src="https://github.com/user-attachments/assets/1801e5e8-b49a-4b6b-bc03-af840fc687e4" />
 
-Now run the script again:
-python3 test_batch_put.py
+Now I will run the script again:
+      
+      python3 test_batch_put.py
 
-You will notice errors, which is what what you want this time. 
+I will notice errors, which is what what I want this time. 
 
 <img width="943" alt="image" src="https://github.com/user-attachments/assets/0a958e1d-7cc6-4701-985a-f9af01891ae5" />
 
 <img width="959" alt="image" src="https://github.com/user-attachments/assets/289b87e9-8784-44d1-b43f-2eeb9bcdc391" />
 
 The important feedback in this output is the ClientError: An error occurred (ValidationException) when calling the BatchWriteItem operation: Provided list of item keys contains duplicates. 
-In AWS Cloud9, review the contents of the resources/website/all_products.json file. You will find many items. These items have several attributes, and some include an optional integer attribute called specials.
-In order to load the raw JSON used in the website, you use a new script called batch_put.py. It is very similar to the test_batch_put.py script. This script allows for the optional integer special attribute and also maps the names of more fields to the correct DynamoDB attribute types.
+In AWS Cloud9, review the contents of the resources/website/all_products.json file. I will find many items. These items have several attributes, and some include an optional integer attribute called specials.
+In order to load the raw JSON used in the website, I use a new script called batch_put.py. It is very similar to the test_batch_put.py script. This script allows for the optional integer special attribute and also maps the names of more fields to the correct DynamoDB attribute types.
 
 <img width="959" alt="image" src="https://github.com/user-attachments/assets/974ea682-beb7-4b54-bffe-bc1b073c2697" />
 
 Modify the python_3/batch_put.py script. 
 <ol>
       <li>Replace <FMI> with FoodProducts</li>
-      <li>In the upper left, choose File > Save to save your changes.</li>
+      <li>In the upper left, choose File > Save to save my changes.</li>
 </ol>
 
 <img width="959" alt="image" src="https://github.com/user-attachments/assets/18df0514-4e9f-4b24-b4b3-c68d39ab7cf6" />
 
 Run the script:
-python batch_put.py
+      
+      python batch_put.py
+
 After the script completes, the terminal should show the following output:
 
 <img width="959" alt="image" src="https://github.com/user-attachments/assets/26f81311-bf46-47cf-b74d-9c923de2a6f5" />
 
-In the DynamoDB Item explorer, review the inserted data. You should now see 26 items! 
+In the DynamoDB Item explorer, review the inserted data. I can now see 26 items! 
 
 <img width="959" alt="image" src="https://github.com/user-attachments/assets/dcb8ba5f-9179-40c8-94f0-0a8c132711d0" />
 
@@ -410,10 +414,10 @@ The SDK has two operations for retrieving data from a DynamoDB table: scan() and
 
 The scan operation reads all records in the table, and unwanted data can then be filtered out. If only a subset of the table data is needed, the query operation often provides better performance because it reads only a subset of the records in the table or index.
 The business owners want to show all the menu items on the café website, so Sofía decides to use the scan() operation to retrieve all records from the table. 
-In this task, you continue as Sofía to implement this feature.
-Note: Later in the application development process, you use this Python code in an AWS Lambda function. The Lambda function retrieves the table records so that the café website can display all the pastries.
+In this task, I will continue as Sofía to implement this feature.
+Note: Later in the application development process, I will use this Python code in an AWS Lambda function. The Lambda function retrieves the table records so that the café website can display all the pastries.
 
-Edit the script that selects all records from the table: In AWS Cloud9 IDE, open python_3 > get_all_items.py. In the upper left, choose File > Save to save your changes. 
+Edit the script that selects all records from the table: In AWS Cloud9 IDE, open python_3 > get_all_items.py. In the upper left, choose File > Save to save my changes. 
 
 <img width="959" alt="image" src="https://github.com/user-attachments/assets/72939cd5-260e-40ec-a860-796747a10180" />
 
@@ -425,44 +429,48 @@ Review the get_all_items.py script to understand what it does:
       <li>When the while loop runs, the code processes each page, which is also known as pagination. The loop then appends records to the end of the result set until all data has been received:</li>
 </ol>
 
-response = table.scan()
- data = response['Items']
- while response.get('LastEvaluatedKey'):
-    response = table.scan(ExclusiveStartKey=response['LastEvaluatedKey'])
-     data.extend(response['Items'])
+      response = table.scan()
+       data = response['Items']
+       while response.get('LastEvaluatedKey'):
+          response = table.scan(ExclusiveStartKey=response['LastEvaluatedKey'])
+           data.extend(response['Items'])
 
 In the AWS Cloud9 terminal, run the script: 
-python3 get_all_items.py
 
-The returned data should be similar to the following output: 
+      python3 get_all_items.py
+
+The returned the following output: 
 
 <img width="959" alt="image" src="https://github.com/user-attachments/assets/28c2a9c0-6b6a-420f-926d-e41ae73b70a8" />
 
-Notice that Python returns the numeric data for the price_in_cents attribute as Decimal(number as string). This is not valid JSON, but that's OK for now. You address this issue in a future lab.
-You have a good start with this query, which returns all records. However, you want to try and search based on a attribute so that Frank and Martha could query for a specific product if they want to by using the product_name. You decide as a proof of concept to create a new script that returns a single product instead of returning all products.
-Update the get_one_item.py script. Replace the <FMI_1> with the name of the table's primary key.n the upper left, choose File > Save to save your changes.
+Notice that Python returns the numeric data for the price_in_cents attribute as Decimal(number as string). This is not valid JSON, but that's OK for now. I will address this issue in a future lab.
+
+I have a good start with this query, which returns all records. However, I want to try and search based on a attribute so that the business owners could query for a specific product if they want to by using the product_name. I decide as a proof of concept to create a new script that returns a single product instead of returning all products.
+
+Update the get_one_item.py script. Replace the <FMI_1> with the name of the table's primary key.n the upper left, choose File > Save to save my changes.
 
 <img width="959" alt="image" src="https://github.com/user-attachments/assets/718ac402-f9d9-4044-989c-cd7778634272" />
 
-Review the code to understand what it does: Focus on lines 13 and 14, which define the response variable. The get_item operation requires a TableName and a Key. The Key parameter is used to compare the table's primary key, product_name, with the value that is passed in from the main module of the script. On line 24, note the value that's assigned to the product variable. Also observe that this value is passed to the get_one_item function.
+I review the code to understand what it does: Focus on lines 13 and 14, which define the response variable. The get_item operation requires a TableName and a Key. The Key parameter is used to compare the table's primary key, product_name, with the value that is passed in from the main module of the script. On line 24, I note the value that's assigned to the product variable. Also observe that this value is passed to the get_one_item function.
 
-response = DDB.get_item(TableName='FoodProducts',
-  Key={
-   'product_name': {'S': product}
-   }
-  )
-data = response['Item']
-print (data)
-if __name__ == '__main__':
-  product = "chocolate cake"
-  get_one_item(product)
+      response = DDB.get_item(TableName='FoodProducts',
+        Key={
+         'product_name': {'S': product}
+         }
+        )
+      data = response['Item']
+      print (data)
+      if __name__ == '__main__':
+        product = "chocolate cake"
+        get_one_item(product)
 
-  Note: The get_item operation is a higher level abstraction of the query operation. It is designed to return a single item. In the AWS Cloud9 terminal, run the following command: python3 get_one_item.py
+  Note: The get_item operation is a higher level abstraction of the query operation. It is designed to return a single item. In the AWS Cloud9 terminal, run the following command: 
+  
+        python3 get_one_item.py
 
 <img width="959" alt="image" src="https://github.com/user-attachments/assets/3b6c471b-c5fb-44a7-ba31-2b7a855b3c94" />
 
-You will notice that this is now in the DynamoDB object format (unlike the query you did before) and thus includes keys such as N and S. This is fine for now. You could parse that out and turn it into JSON that the website can understand using Lambda. However, this feature was only for a proof of concept.
-Sofía demonstrates the database features that she developed for the website to Frank, Martha, and the café staff. They are pleased that the website will soon be able to show all the live product information instead of the hard-coded version that they have currently.
+I also notice that this is now in the DynamoDB object format (unlike the query I did before) and thus includes keys such as N and S. This is fine for now. I could parse that out and turn it into JSON that the website can understand using Lambda. However, this feature was only for a proof of concept.
 
 <h2>Task 7: Adding a global secondary index to the table</h2>
 
