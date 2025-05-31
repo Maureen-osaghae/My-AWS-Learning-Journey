@@ -2,8 +2,8 @@
   
 <h2>Lab overview</h2>
 
-In this lab, you will create a REST application programming interface (API) by using Amazon API Gateway.
-<h3>What I learned:</h3>
+In this lab, I will create a REST application programming interface (API) by using Amazon API Gateway.
+<h3>What I did:</h3>
 <ol>
       <li>Create simple mock endpoints for REST APIs and use them in the cafe website.</li>
       <li>Enable Cross-Origin Resource Sharing (CORS)</li>
