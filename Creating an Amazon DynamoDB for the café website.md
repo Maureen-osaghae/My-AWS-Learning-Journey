@@ -147,22 +147,23 @@ Return to the browser tab with the DynamoDB console. Use the refresh icon on the
 
 <img width="959" alt="image" src="https://github.com/user-attachments/assets/0594cc1c-2cb3-46fa-9e7f-bc284c326444" />
 
-In the next few tasks, I will learn how to add data to the table that I created. 
+In the next few tasks, I will learn how to add data to the table I just created. 
 
-<h2>Task 3: Working with DynamoDB data – Understanding DynamoDB condition expressions</h2>
+<h2>Task 3: How I work with data in DynamoDB – Understanding DynamoDB condition expressions</h2>
 Now that I have created the table, I wants to understand what happens when records are written to it. In this task, I will insert the first record into the table. 
-Review the JavaScript Object Notation (JSON) data that defines the new record. In the AWS Cloud9 IDE, expand the resources folder. Open the not_an_existing_product.json file by double-clicking it.
+
+But first I need to review the JavaScript Object Notation (JSON) data that defines the new record. In the AWS Cloud9 IDE, I expand the resources folder. Open the not_an_existing_product.json file by double-clicking it.
 
  <img width="959" alt="image" src="https://github.com/user-attachments/assets/01df06ac-406e-4a07-87d1-665de464d6ce" />
 
-Analysis: This file contains one item with two attributes: product_name and product_id. Both of these attributes are strings. The primary key (product_name) was defined when the DynamoDB table was created. Because DynamoDB tables are schemaless (to be exact, not bound by a fixed schema), you can add new attributes to the table when items are inserted or updated. With DynamoDB, you don't need to change the table definition before you add records that contain additional attributes. To insert the new record, run the following command. Ensure that you are still in the python_3 folder. 
+Analysis: This file contains one item with two attributes: product_name and product_id. Both of these attributes are strings. The primary key (product_name) was defined when the DynamoDB table was created. Because DynamoDB tables are schemaless (to be exact, not bound by a fixed schema), I can add new attributes to the table when items are inserted or updated. With DynamoDB, I don't need to change the table definition before I can add records that contain additional attributes. To insert the new record, run the following command. Ensuring that I am still in the python_3 folder. 
 
-aws dynamodb put-item \
---table-name FoodProducts \
---item file://../resources/not_an_existing_product.json \
---region us-east-1
+      aws dynamodb put-item \
+      --table-name FoodProducts \
+      --item file://../resources/not_an_existing_product.json \
+      --region us-east-1
 
-Verify that the new record was added to the table by using the DynamoDB console to complete the following tasks:
+I will now go to the DynamoDB console to verify that the new record was added to the table by using the DynamoDB console to complete the following tasks:
 
 <ol>
       <li>Return to the DynamoDB console and choose the FoodProducts link.</li>
@@ -172,7 +173,7 @@ Verify that the new record was added to the table by using the DynamoDB console 
 
 <img width="840" alt="image" src="https://github.com/user-attachments/assets/439239d3-c500-4deb-8ee2-95b14c866cb1" />
 
-You should find one record with two attributes: product_name and product_id. Add a second record to the table.  Update the JSON data to create a new record:
+I find one record with two attributes: product_name and product_id. Add a second record to the table.  Update the JSON data to create a new record:
 <ol>
       <li>Return to the AWS Cloud9 IDE and load the not_an_existing_product.json file in the text editor.</li>
       <li>Replace the product_name value of <best cake> with best pie</li>
@@ -180,8 +181,8 @@ You should find one record with two attributes: product_name and product_id. Add
 
 <img width="959" alt="image" src="https://github.com/user-attachments/assets/76fe66e1-6780-4d6b-ab6d-cee36e3ef0e6" />
 
-Do not change the product_id value. In the upper left, choose File > Save to save your changes.
-To add the new record, run the previous command. Notice that this command is the same AWS CLI command that you used to add the first record.  Again, view the new record in the table by using the console:
+I did not change the product_id value. In the upper left, choose File > Save to save my changes.
+To add the new record, run the previous command. I Notice that this command is the same AWS CLI command that I used to add the first record.  Again, view the new record in the table by using the console:
 <ol>
       <li>Return to the Item explorer in the DynamoDB console.</li>
       <li>Confirm that the FoodProducts table is selected.</li>
@@ -192,11 +193,11 @@ To add the new record, run the previous command. Notice that this command is the
 
 <img width="959" alt="image" src="https://github.com/user-attachments/assets/3cbede96-1d2a-4935-95bf-3efc3af829af" />
 
-Because the product_id attribute is not the primary key of the table, it doesn't need to be unique, and a new record is inserted successfully. If the value of product_name is different, a new record is created in the table. What do you think will happen if you try to insert a duplicate record? 
-Return to the AWS Cloud9 IDE and try re-running the previous AWS CLI command (the up key helps here). Don't make any changes to the JSON record. 
+Because the product_id attribute is not the primary key of the table, it doesn't need to be unique, and a new record is inserted successfully. If the value of product_name is different, a new record is created in the table.
 
-In the DynamoDB console, choose Run again and review the Items returned list. Did you notice any changes.
-💁‍♂ When a primary key doesn't exist in the table, the DynamoDb put-item command inserts a new item. However, if the primary key already exists, this command replaces the existing record with the new record, removing any previous attributes. This behavior is why you don't see a new item in the table: the record was overwritten with identical information. The primary key prevents the same product_name values from being added multiple times.
+I return to the AWS Cloud9 IDE and try re-running the previous AWS CLI command. I did not make any changes to the JSON record. 
+
+In the DynamoDB console, choose Run again and review the Items returned list. When a primary key doesn't exist in the table, the DynamoDb put-item command inserts a new item. However, if the primary key already exists, this command replaces the existing record with the new record, removing any previous attributes. This behavior is why I don't see a new item in the table: the record was overwritten with identical information. The primary key prevents the same product_name values from being added multiple times.
 
 <img width="779" alt="image" src="https://github.com/user-attachments/assets/b7d89662-7c91-47d2-acb8-be1e43e231a6" />
 
