@@ -475,51 +475,53 @@ I also notice that this is now in the DynamoDB object format (unlike the query I
 <h2>Task 7: Adding a global secondary index to the table</h2>
 
 Frank and Martha like the proof of concept that can now query the database for a specific product but return to Sofía with a request for a slightly more useful feature. The café staff originally thought that they would like to list all the products when the main page loads, but loading all 26 images would slow down the website.
-They considered a pagination feature, but with only 26 items, this option feels unnecessary. Instead, they have asked Sofia to expand on the proof of concept that searched based on a product name. This time, they need to search for items that are both part of the weekly special and also show that they are "on offer" in the tags attribute. This way when the website default page loads, it fetches only the featured menu items. You can also give the users the option to show all items when building the website. This option makes the website much more efficient. You make these website changes in a later lab to accommodate this new loading process.
+
+They considered a pagination feature, but with only 26 items, this option feels unnecessary. Instead, they have asked Sofia to expand on the proof of concept that searched based on a product name. This time, they need to search for items that are both part of the weekly special and also show that they are "on offer" in the tags attribute. This way when the website default page loads, it fetches only the featured menu items. Sofia can also give the users the option to show all items when building the website. This option makes the website much more efficient. I will make these website changes in a later lab to accommodate this new loading process.
 Sofía knows that searching on a primary key is easy as per her proof of concept. However, in order to search on attributes that are not part of a primary key, she needs to add a Global Secondary Index to the existing FoodProducts table.
 
-In this task, you continue as Sofía to implement this feature.
-Update the add_gsi.py script. Replace the <FMI_1> with the KeyType of HASH In the upper left, choose File > Save to save your changes.
+In this task, I continue as Sofía to implement this feature.
+Update the add_gsi.py script. Replace the <FMI_1> with the KeyType of HASH In the upper left, choose File > Save to save my changes.
 
 <img width="959" alt="image" src="https://github.com/user-attachments/assets/027e5f4c-b83f-4070-a91d-a1aa5f8e0c3e" />
 
-To understand what the add_gsi.py script does, open this script to review the code. Review the params variable on line 12. Focus on the GlobalSecondaryIndexUpdates parameter. Notice that a new index named special_GSI is created. This new index consists of one attribute: special. Similarly to the table creation, the line that defines the table variable also updates the table.
+To understand what the add_gsi.py script does, I open this script to review the code. Review the params variable on line 12. Focus on the GlobalSecondaryIndexUpdates parameter. I notice that a new index named special_GSI is created. This new index consists of one attribute: special. Similarly to the table creation, the line that defines the table variable also updates the table.
 
- params = {
-        'TableName': 'FoodProducts',
-        'AttributeDefinitions': [
-            {'AttributeName': 'special', 'AttributeType': 'N'}
-        ],
-        'GlobalSecondaryIndexUpdates': [
-            {
-                'Create': {
-                    'IndexName': 'special_GSI',
-                    'KeySchema': [
-                        {
-                            'AttributeName': 'special',
-                            'KeyType': 'HASH'
-                        }
-                    ],
-                        'Projection': {
-                        'ProjectionType': 'ALL'
-                    },
-                        'ProvisionedThroughput': {
-                        'ReadCapacityUnits': 1,
-                        'WriteCapacityUnits': 1
-                    }
-                }
-            }
-        ]
-    }
-
-    table = DDB.update_table(**params)
+       params = {
+              'TableName': 'FoodProducts',
+              'AttributeDefinitions': [
+                  {'AttributeName': 'special', 'AttributeType': 'N'}
+              ],
+              'GlobalSecondaryIndexUpdates': [
+                  {
+                      'Create': {
+                          'IndexName': 'special_GSI',
+                          'KeySchema': [
+                              {
+                                  'AttributeName': 'special',
+                                  'KeyType': 'HASH'
+                              }
+                          ],
+                              'Projection': {
+                              'ProjectionType': 'ALL'
+                          },
+                              'ProvisionedThroughput': {
+                              'ReadCapacityUnits': 1,
+                              'WriteCapacityUnits': 1
+                          }
+                      }
+                  }
+              ]
+          }
+      
+          table = DDB.update_table(**params)
 
 In the AWS Cloud9 terminal, run the following command: 
-python3 add_gsi.py
+
+      python3 add_gsi.py
 
 <img width="958" alt="image" src="https://github.com/user-attachments/assets/367925f0-35ba-47d9-85ef-325106d205d7" />
 
-If the command completes successfully, the terminal output should display the message DONE.
+If the command completes successfully, the terminal output display the message DONE.
 
 <img width="623" alt="image" src="https://github.com/user-attachments/assets/7ade720c-035e-4e60-8e97-66406c5c8a4c" />
 
@@ -531,7 +533,6 @@ In the DynamoDB console, monitor the status of the index:
           <li>Choose the Indexes tab.</li>
           <li>Wait until the Status changes from Creating to Active.</li>
 </ol>
-
 
 
 <img width="959" alt="image" src="https://github.com/user-attachments/assets/819c07a4-d102-4b76-bf01-8e2c8f12de36" />
@@ -549,26 +550,25 @@ Update the scan_with_filter.py script.
 <span>Review the code.</span>
 On line 18, including the IndexName option lets the scan operator know that it will be going to the index and not the main table to read the data. On line 19, the filter expression processes the records that have been read and shows only records that meet the comparison criteria. In this case, it shows records only if they don't have out of stock in the tags attribute. This ensures that only items that are available or "on offer" are shown to customers.
 
-response = table.scan(
-  IndexName='special_GSI',
-  FilterExpression=Not(Attr('tags').contains('out of stock')))
+      response = table.scan(
+        IndexName='special_GSI',
+        FilterExpression=Not(Attr('tags').contains('out of stock')))
 
 Note: You may be familiar with the older DynamoDB parameter, ScanFilter. This is a legacy parameter. FilterExpression should be used instead. 
-FilterExpression does not include all of the operators that were provided with ScanFilter, for example NOT_CONTAINS. This is why you wrapped the comparison inside the Not() function.
+FilterExpression does not include all of the operators that were provided with ScanFilter, for example NOT_CONTAINS. This is why I wrapped the comparison inside the Not() function.
 Save the file and run it. 
 
-python3 scan_with_filter.py
+      python3 scan_with_filter.py
 
 The output the following: 
 
 <img width="953" alt="image" src="https://github.com/user-attachments/assets/74aa8e5d-dc6e-4550-90ff-f328add7edfd" />
 
-Again, the response is not in the format the website requires. However, when you use this code in a Lambda function in a later lab, you will adjust then.
+Again, the response is not in the format the website requires. However, when I use this code in a Lambda function in a later lab, I will adjust then.
 
-<h2>Update from the café</h2>
-Sofía is happy with the progress that she has made. The database table is loaded with data, she addressed the café's database backend requirements, and she will soon wire this into the website. 
-Sofía's next task is to create an API that the website can use.
-Sofía decides to stop for the day, but she's looking forward to her next task. She plans to start working on creating a mock API that she can use for testing.
+<h2>Conclusion</h2>
+ I am happy with the progress that I have made. The database table is loaded with data, I addressed the café's database backend requirements, and I will soon wire this into the website. Ny next task is to create an API that the website can use.
+I decides to stop for the day, but I am looking forward to her next task. I plans to start working on creating a mock API that I can use for testing.
 
 <h2>Lab complete</h2>
 
