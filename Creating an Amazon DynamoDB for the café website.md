@@ -1,9 +1,9 @@
 <h1>Working with Amazon DynamoDB</h1>
 <h2>Lab overview and objectives</h2>
-<p>In this lab, you use Amazon DynamoDB to store and manage menu information. Using databases, such as DynamoDB, simplifies data management because you can easily query, sort, edit, and index data. you will use both the AWS Command Line Interface (AWS CLI) and the AWS SDK for Python (Boto3) to work with DynamoDB. </p>
+<p>In this lab, I use Amazon DynamoDB to store and manage menu information. Using databases, such as DynamoDB, simplifies data management because I can easily query, sort, edit, and index data. I will use both the AWS Command Line Interface (AWS CLI) and the AWS SDK for Python (Boto3) to work with DynamoDB. </p>
 
-<p>In upcoming labs, you will use application programming interface (API) calls from the café website to dynamically retrieve and update data that's stored in a DynamoDB table. </p>
-After completing this lab, you should be able to:
+<p>In upcoming labs, I will use application programming interface (API) calls from the café website to dynamically retrieve and update data that's stored in a DynamoDB table. </p>
+What I did:
 <ol>
       <li>Create a new DynamoDB table </li>
       <li>Add data to the table</li> 
@@ -12,7 +12,7 @@ After completing this lab, you should be able to:
       <li>Add a global secondary index to the table</li>
       </ol>
 
-When you start the lab, the following resources are already created for you in the AWS account:
+When I start the lab, the following resources are already created for me in the AWS account:
 <ol>
       <li>AWS Cloud9 integrated development environment (IDE) instance</li>
       <li>Amazon Elastic Compute Cloud (Amazon EC2) instance for authoring code and running commands through the AWS CLI</li>
